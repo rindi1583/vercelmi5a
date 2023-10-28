@@ -5,8 +5,11 @@ const router = express.Router()
 const Mahasiswa = require('../models/Mahasiswa')
 
 
+// Import verifyToken
+const verifyToken = require('../config/verifyToken')
+
 // post fakultas
-router.post('/', async(req, res) => {
+router.post('/',  async(req, res) => {
     const dataMahasiswa = {
         npm: req.body.npm,
         nama: req.body.nama,
@@ -25,7 +28,7 @@ router.post('/', async(req, res) => {
 })
 
 //get
-router.get('/', async(req, res)=>{
+router.get('/', verifyToken, async(req, res)=>{
     try {
         const mahasiswa = await Mahasiswa.find()
         // .populate({
